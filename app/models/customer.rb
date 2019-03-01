@@ -17,14 +17,8 @@ class Customer
     "#{first_name} #{last_name}"
   end
 
-  def self.find_by_name(first_name, last_name)
-    
-    name = @@all.select do |customer|
-      if customer.first_name == first_name && customer.last_name == last_name
-        customer.full_name
-      end
-    end
-    name.first
+  def self.find_by_name(full_name)
+    @@all.find { |customer| customer.full_name == full_name }
   end
 
   def self.find_all_by_first_name(first_name)
@@ -33,12 +27,9 @@ class Customer
     end
   end
 
-
-  def self.all_names(first_name, last_name)
-    @@all.each do |customer|
-      if customer.first_name == first_name && customer.last_name == last_name
-        customer.full_name
-      end
+  def self.all_names
+    @@all.collect do |customer|
+       customer.full_name 
     end
   end
 
@@ -47,19 +38,21 @@ class Customer
   end
 
   def num_reviews
-    reviews = Review.all.select |review|
+    reviews_for_a_customer = Review.all.select do |review|
       review.customer == self
     end
-    reviews.sum
+    reviews_for_a_customer.length 
   end
+
 
   def restaurants
-    reviews = Review.all.select |review|
-      review.customer == self
+    all_restaurants_for_a_customer = Review.all.select do |review|
+      review.restaurant 
     end
-    reviews.map do |review|
-      review.restaurant
-    end
+    all_restaurants_for_a_customer.uniq
   end
 
+
 end
+
+

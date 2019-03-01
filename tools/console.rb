@@ -15,6 +15,7 @@ r2 = Restaurant.new('Restaurant2')
 
 review1 = Review.new(c1, r1, 5, 'Great food')
 review2 = Review.new(c1, r2, 4, 'Good food')
+review3 = Review.new(c2, r1, 5, 'Great service here')
 
 
 binding.pry
